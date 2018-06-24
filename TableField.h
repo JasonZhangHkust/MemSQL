@@ -17,13 +17,16 @@ namespace MemSQL
 
     class TableField
     {
+    public:
+
         typedef std::vector<pRecord> recordList;
+
     private:
         //Equal Mapper
         // Data -> Record Pointer
         std::unordered_map<std::string, recordList> mEqualMapper;
         //Index Mapper
-        // Index -> Record Pointer
+        // Data -> Record Pointer
         std::unordered_map<std::string, unequalData> mEtcMapper;
         FieldType eFieldType;
         std::string sFieldName;
@@ -150,7 +153,7 @@ namespace MemSQL
             }
         }
 
-        static bool Compare( MatchType t, TFieldData& tabData, TFieldData& userExpect)
+        static bool Compare( MatchType t, std::string& tabData, std::string& userExpect)
         {
             bool bRet = false;
             switch( t )
@@ -180,7 +183,7 @@ namespace MemSQL
 
             if (mEtcMapper.find(tabData) != mEtcMapper.end())
             {
-                unequalData<TRecord>& ud = mEtcMapper.at(tabData);
+                unequalData& ud = mEtcMapper.at(tabData);
                 if(ud.matchTypeList.find(t) != ud.matchTypeList.end())
                 {
                     AddListToResult(q, ud.matchTypeList.at(t));
