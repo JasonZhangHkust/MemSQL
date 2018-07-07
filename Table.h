@@ -12,12 +12,12 @@ namespace MemSQL
         std::unordered_map<std::string, pTableField> mFieldByName;
         std::vector<pTableField> vFields;
     public:
-        Table(std::vector<std::pair<std::string, FieldType> > tTableDefine)
+        Table(std::map<std::string, FieldType>& tTableDefine)
         {
            for(auto& tColumn : tTableDefine)
            {
-               tableFieldPtr pTableField  = std::make_shared<TableField>(colomn.second);
-               lFields.push_back(pTableField);
+               tableFieldPtr pTableField  = std::make_shared<TableField>(tColumn.first, tColumn.second);
+               vFields.push_back(pTableField);
                mFieldByName.insert(colomn.first, pTableField);
            }
 

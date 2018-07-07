@@ -7,6 +7,7 @@
 #include <unordered_map>
 #include <memory>
 #include <map>
+#include <set>
 
 namespace MemSQL
 {
