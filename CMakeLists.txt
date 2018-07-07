@@ -3,5 +3,4 @@ project(MemSQL)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(MemSQL main.cpp Query.h)
-        #TableField.h TableBase.h Table.h)
+add_executable(MemSQL main.cpp Query.h TableField.h TableBase.h Table.h)

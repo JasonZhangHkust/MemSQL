@@ -7,7 +7,12 @@
 
 int main()
 {
-    std::map<std::string, MemSQL::FieldType> vTableDefine = {{"id", 0}, {"level",0}, {"score",0}};
-    MemSQL::Table(vTableDefine);
+	std::map<std::string, MemSQL::FieldType> vMyDefine;
+
+	vMyDefine.insert(std::make_pair("id", MemSQL::FieldType::INT));
+	vMyDefine.insert(std::make_pair("level", MemSQL::FieldType::INT));
+	vMyDefine.insert(std::make_pair("score", MemSQL::FieldType::INT));
+
+    MemSQL::Table myTable(vMyDefine);
 
 }

@@ -27,11 +27,10 @@ namespace MemSQL
 
     class MatchTypeHelper
     {
-        static std::unordered_map<std::string, unsigned short> mStr2Type;
+        static std::unordered_map<std::string, MatchType> mStr2Type;
     public:
         static MatchType Parse(std::string& str)
         {
-            unsigned short iRet;
             if(mStr2Type.find(str) != mStr2Type.end())
             {
                 return mStr2Type[str];
@@ -41,7 +40,7 @@ namespace MemSQL
         }
     };
 
-    std::unordered_map<std::string, unsigned short> MatchTypeHelper::mStr2Type =
+    std::unordered_map<std::string, MatchType> MatchTypeHelper::mStr2Type =
             {
                     {"==", MatchType::Equal},
                     {"!=", MatchType::NotEqual},

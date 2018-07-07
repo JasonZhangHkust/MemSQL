@@ -1,0 +1,105 @@
+#include "Query.h"
+#include "TableField.h"
+#include "Table.h"
+
+namespace MemSQL
+{
+	void Query::Reset()
+	{
+		done = false;
+		iLimit = -1;
+		vConditions.clear();
+		mResults.clear();
+	}
+
+	Query& Query::Where(std::string& sFieldName, std::string& sMatchType, std::string& sValue)
+	{
+		MatchType eMatchType = MatchTypeHelper::Parse(sMatchType);
+
+		if (eMatchType == MatchType::Unknown)
+		{
+			throw "Unknow match type";
+		}
+
+		if (!pTable.get())
+		{
+			throw "Empty Table";
+		}
+		Condition tCon;
+		tCon.matchType = eMatchType;
+		tCon.pTableField = (*pTable).GetFieldByName(sFieldName);
+		tCon.sValue = sValue;
+
+		vConditions.push_back(tCon);
+		return *this;
+	}
+
+	Query& Query::Limit(int count)
+	{
+		if (count < 0)
+		{
+			throw "Count should > 0";
+		}
+		this->iLimit = count;
+
+		return *this;
+	}
+
+	Query& Query::SortBy(std::function<bool(std::string&)> fCallBack)
+	{
+		fSorter = fCallBack;
+		return  *this;
+	}
+
+	void Query::Add(pRecord)
+	{
+		mMergeDataByData.insert(pRecord);
+	}
+
+	void Query::Do()
+	{
+		if (done || !pTable.get())
+			return;
+
+		if (pTable->GetFieldCount() > 0)
+		{
+			if (vConditions.size().empty())
+			{
+				pTable->GetFieldByIndex(0);
+			}
+			else
+			{
+				for (auto& tCon : vConditions)
+				{
+					tCon.pTableField->Match(this, tCon.matchType, tCon.sValue);
+				}
+			}
+		}
+
+		done = true;
+	}
+
+	std::vector<std::map<std::string, std::string> > Query::Result()
+	{
+		Do();
+		std::vector<std::map<std::string, std::string> > vResult;
+
+		for (auto& data : vRet)
+		{
+			vResult.push_back(data->second);
+		}
+
+		if (fSorter)
+		{
+			sort(vResult.begin(), vResult.end(), fSorter);
+		}
+
+		if (iLimit != -1 && iLimit < vResult.size())
+		{
+			vResult.erase(vResult.begin(), vResult.begin() + iLimit);
+		}
+
+		return vResult;
+	}
+
+}
