@@ -12,6 +12,7 @@ namespace MemSQL
 	{
 		return sFieldName;
 	}
+
 	void TableField::Add(const std::string& data, const pRecord ptr)
 	{
 		//Find Key Then append record to the end
@@ -47,7 +48,7 @@ namespace MemSQL
 		return mEqualMapper.size();
 	}
 
-	bool TableField::GetByKey(std::string& sKey, FieldType keyType, recordList& lRecordList)
+	bool TableField::GetByKey(const std::string& sKey, FieldType keyType, recordList& lRecordList)
 	{
 		bool bRet = false;
 		if (mEqualMapper.find(sKey) != mEqualMapper.end())
@@ -82,7 +83,7 @@ namespace MemSQL
 		case MatchType::Equal:
 		{
 			recordList lRecordList;
-			if (GetByKey(data, this.fieldType, lRecordList))
+			if (GetByKey(data, this->eFieldType, lRecordList))
 			{
 				AddListToResult(q, lRecordList);
 			}
@@ -104,13 +105,13 @@ namespace MemSQL
 		}
 		default:
 		{
-			// Ê¹ÓÃË÷Òý¹ýµÄÊý¾Ý
+			// Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			if (MatchByIndex(q, t, data))
 			{
 				return;
 			}
 
-			// ±©Á¦Æ¥Åä
+			// ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½
 			for (auto& kv : mEqualMapper)
 			{
 				if (Compare(t, kv.first, data))
@@ -123,22 +124,22 @@ namespace MemSQL
 		}
 	}
 
-	static bool TableField::Compare(MatchType t, std::string& tabData, std::string& userExpect)
+	bool TableField::Compare(MatchType t, const std::string& tabData, const std::string& userExpect)
 	{
 		bool bRet = false;
 		switch (t)
 		{
 		case MatchType::Less:
-			bRet = tabDataT < userExpectT;
+			bRet = tabData < userExpect;
 			break;
 		case MatchType::LessEqual:
-			bRet = tabDataT <= userExpectT;
+			bRet = tabData <= userExpect;
 			break;
 		case MatchType::Great:
-			bRet = tabDataT > userExpectT;
+			bRet = tabData > userExpect;
 			break;
 		case MatchType::GreatEqual:
-			bRet = tabDataT >= userExpectT;
+			bRet = tabData >= userExpect;
 			break;
 		default:
 			bRet = false;
@@ -146,7 +147,7 @@ namespace MemSQL
 		return bRet;
 	}
 
-	bool TableField::MatchByIndex(Query* q, MatchType t, std::string& tabData)
+	bool TableField::MatchByIndex(Query* q, MatchType t, const std::string& tabData)
 	{
 		if (mEtcMapper.empty())
 			return false;

@@ -12,10 +12,10 @@ namespace MemSQL
 			return;
 		for (auto& sFields : (*ptrRecord))
 		{
-			tableFieldPtr pTableField = vFields[index];
+			tableFieldPtr pTableField = vFields[iIndex];
 			if (pTableField.get())
 				(*pTableField).Add(sFields.first, ptrRecord);
-			++index;
+			++iIndex;
 		}
 	}
 
@@ -34,8 +34,7 @@ namespace MemSQL
 
 		if (iIndex < vFields.size() && iIndex >= 0)
 		{
-			tTableField = vFields.at(iIndex);
-			bRet = true;
+			auto tTableField = vFields.at(iIndex);
 		}
 
 		return tableFieldPtr();
@@ -58,7 +57,7 @@ namespace MemSQL
 
 		tableFieldPtr pField = GetFieldByName(sName);
 
-		if (!tableFieldPtr.get())
+		if (!pField.get())
 		{
 			throw "Field not found: +" + sName;
 		}
@@ -84,13 +83,13 @@ namespace MemSQL
 					FieldType eFieldType = (*pField).GetTableFieldType();
 					MemSQL::TableField::recordList vRecordList;
 					if ((*pField).GetByKey(std::to_string(j), eFieldType, vRecordList));
-					vIndexList.push_back(vIndexList.end(), vRecordList.begin(), vRecordList.end());
+					vIndexList.insert(vIndexList.end(), vRecordList.begin(), vRecordList.end());
 				}
 			}
 			break;
-			case MatchType.Great:
+				case MatchType::Great:
 			{
-				// ´óÓÚµ±Ç°ÖµµÄËùÓÐÁÐ±íºÏ²¢
+				// ï¿½ï¿½ï¿½Úµï¿½Ç°Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½Ï²ï¿½
 				for (int j = i + 1; j <= iEnd; j++)
 				{
 					FieldType eFieldType = (*pField).GetTableFieldType();
@@ -101,37 +100,37 @@ namespace MemSQL
 
 			}
 			break;
-			case MatchType.GreatEqual:
+				case MatchType::GreatEqual:
 			{
-				// ´óÓÚµÈÓÚµ±Ç°ÖµµÄËùÓÐÁÐ±íºÏ²¢
+				// ï¿½ï¿½ï¿½Úµï¿½ï¿½Úµï¿½Ç°Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½Ï²ï¿½
 				for (int j = i; j <= iEnd; j++)
 				{
 					FieldType eFieldType = (*pField).GetTableFieldType();
 					MemSQL::TableField::recordList vRecordList;
 					if ((*pField).GetByKey(std::to_string(j), eFieldType, vRecordList));
-					vIndexList.push_back(vIndexList.end(), vRecordList.begin(), vRecordList.end());
+					vIndexList.insert(vIndexList.end(), vRecordList.begin(), vRecordList.end());
 				}
 			}
 			break;
-			case MatchType.Less:
+				case MatchType::Less:
 			{
-				for (int j = begin; j < i; j++)
+				for (int j = iBegin; j < i; j++)
 				{
 					FieldType eFieldType = (*pField).GetTableFieldType();
 					MemSQL::TableField::recordList vRecordList;
 					if ((*pField).GetByKey(std::to_string(j), eFieldType, vRecordList));
-					vIndexList.push_back(vIndexList.end(), vRecordList.begin(), vRecordList.end());
+					vIndexList.insert(vIndexList.end(), vRecordList.begin(), vRecordList.end());
 				}
 			}
 			break;
-			case MatchType.LessEqual:
+				case MatchType::LessEqual:
 			{
-				for (int j = begin; j <= i; j++)
+				for (int j = iBegin; j <= i; j++)
 				{
 					FieldType eFieldType = (*pField).GetTableFieldType();
 					MemSQL::TableField::recordList vRecordList;
 					if ((*pField).GetByKey(std::to_string(j), eFieldType, vRecordList));
-					vIndexList.push_back(vIndexList.end(), vRecordList.begin(), vRecordList.end());
+					vIndexList.insert(vIndexList.end(), vRecordList.begin(), vRecordList.end());
 				}
 			}
 			break;

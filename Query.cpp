@@ -9,7 +9,7 @@ namespace MemSQL
 		done = false;
 		iLimit = -1;
 		vConditions.clear();
-		mResults.clear();
+		vRet.clear();
 	}
 
 	Query& Query::Where(std::string& sFieldName, std::string& sMatchType, std::string& sValue)
@@ -51,9 +51,9 @@ namespace MemSQL
 		return  *this;
 	}
 
-	void Query::Add(pRecord)
+	void Query::Add(pRecord ptr)
 	{
-		mMergeDataByData.insert(pRecord);
+		mMergeDataByData.insert(ptr);
 	}
 
 	void Query::Do()
@@ -63,7 +63,7 @@ namespace MemSQL
 
 		if (pTable->GetFieldCount() > 0)
 		{
-			if (vConditions.size().empty())
+			if (vConditions.empty())
 			{
 				pTable->GetFieldByIndex(0);
 			}
@@ -84,14 +84,14 @@ namespace MemSQL
 		Do();
 		std::vector<std::map<std::string, std::string> > vResult;
 
-		for (auto& data : vRet)
+		for (auto& tData : vRet)
 		{
-			vResult.push_back(data->second);
+			vResult.push_back(tData);
 		}
 
 		if (fSorter)
 		{
-			sort(vResult.begin(), vResult.end(), fSorter);
+			//std::sort(vResult.begin(), vResult.end(), fSorter);
 		}
 
 		if (iLimit != -1 && iLimit < vResult.size())

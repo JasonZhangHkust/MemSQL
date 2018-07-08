@@ -40,15 +40,7 @@ namespace MemSQL
         }
     };
 
-    std::unordered_map<std::string, MatchType> MatchTypeHelper::mStr2Type =
-            {
-                    {"==", MatchType::Equal},
-                    {"!=", MatchType::NotEqual},
-                    {">", MatchType::Great},
-                    {">=", MatchType::GreatEqual},
-                    {"<", MatchType::Less},
-                    {"<=", MatchType::LessEqual},
-            };
+    typedef  std::shared_ptr<std::map<std::string, std::string> > pRecord;
 }
 ;
 

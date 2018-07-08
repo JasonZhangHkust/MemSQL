@@ -5,13 +5,15 @@
 #include "TableField.h"
 namespace MemSQL
 {
+    typedef std::shared_ptr<TableField> tableFieldPtr;
     class Table
     {
     private:
-        typedef std::shared_ptr<TableField> tableFieldPtr;
+
         std::unordered_map<std::string, tableFieldPtr> mFieldByName;
         std::vector<tableFieldPtr> vFields;
     public:
+
 		Table(std::map<std::string, FieldType> tTableDefine)
 		{
 			for (auto& tColumn : tTableDefine)

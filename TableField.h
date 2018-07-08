@@ -8,7 +8,7 @@
 namespace MemSQL
 {
 	class Query;
-    typedef  std::shared_ptr<std::map<std::string, std::string> > pRecord;
+    //typedef  std::shared_ptr<std::map<std::string, std::string> > pRecord;
 
     class unequalData
     {
@@ -46,7 +46,7 @@ namespace MemSQL
 
 		int KeyCount();
 
-		bool GetByKey(std::string& sKey, FieldType keyType, recordList& lRecordList);
+		bool GetByKey(const std::string& sKey, FieldType keyType, recordList& lRecordList);
 
 		void AddListToResult(Query* q, recordList& lRecordList);
 
@@ -54,9 +54,9 @@ namespace MemSQL
 
 		void Match(Query* q, MatchType t, const std::string& data);
 
-		static bool Compare(MatchType t, std::string& tabData, std::string& userExpect);
+		static bool Compare(MatchType t, const std::string& tabData, const std::string& userExpect);
 
-		bool MatchByIndex(Query* q, MatchType t, std::string& tabData);
+		bool MatchByIndex(Query* q, MatchType t, const std::string& tabData);
     };
 };
 

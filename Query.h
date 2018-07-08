@@ -9,6 +9,8 @@
 
 namespace MemSQL
 {
+    class TableField;
+    class Table;
     struct Condition
     {
         std::shared_ptr<TableField> pTableField;

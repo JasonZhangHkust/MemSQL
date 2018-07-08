@@ -5,6 +5,16 @@
 #include "Query.h"
 #include "TableField.h"
 
+std::unordered_map<std::string, MemSQL::MatchType> MemSQL::MatchTypeHelper::mStr2Type =
+		{
+				{"==", MatchType::Equal},
+				{"!=", MatchType::NotEqual},
+				{">", MatchType::Great},
+				{">=", MatchType::GreatEqual},
+				{"<", MatchType::Less},
+				{"<=", MatchType::LessEqual},
+		};
+
 int main()
 {
 	std::map<std::string, MemSQL::FieldType> vMyDefine;
