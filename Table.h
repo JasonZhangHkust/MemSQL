@@ -1,4 +1,4 @@
-#ifndef MEMSQL_TABLE_H
+﻿#ifndef MEMSQL_TABLE_H
 #define MEMSQL_TABLE_H
 
 #include "TableBase.h"
@@ -20,6 +20,7 @@ namespace MemSQL
 			{
 				tableFieldPtr pTableField = std::make_shared<TableField>(tColumn.second, tColumn.first);
 				vFields.push_back(pTableField);
+				std::cout << pTableField->GetTableFieldName() << std::endl;
 				mFieldByName.insert(std::make_pair(tColumn.first, pTableField));
 			}
 

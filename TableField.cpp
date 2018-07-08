@@ -13,19 +13,20 @@ namespace MemSQL
 		return sFieldName;
 	}
 
-	void TableField::Add(const std::string& data, const pRecord ptr)
+	void TableField::Add(const std::string& sData, const pRecord ptr)
 	{
 		//Find Key Then append record to the end
-		if (mEqualMapper.find(data) != mEqualMapper.end())
+		if (mEqualMapper.find(sData) != mEqualMapper.end())
 		{
-			mEqualMapper.at(data).push_back(ptr);
+			mEqualMapper.at(sData).push_back(ptr);
 		}
 		else
 		{
 			//Not Find then add a new List;
 			recordList lRecordList = { ptr };
-			mEqualMapper.insert(std::make_pair(data, lRecordList));
+			mEqualMapper.insert(std::make_pair(sData, lRecordList));
 		}
+		std::cout << "EqualMapper" << mEqualMapper.size() << std::endl;
 	}
 
 	//Create Index
@@ -62,6 +63,7 @@ namespace MemSQL
 
 	void TableField::AddListToResult(Query* q, recordList& lRecordList)
 	{
+		std::cout << "Record Size"<< lRecordList.size() << std::endl;
 		for (auto& record : lRecordList)
 		{
 			q->Add(record);
@@ -70,7 +72,9 @@ namespace MemSQL
 
 	void TableField::All(Query* q)
 	{
-		for (auto& kv : mEqualMapper)
+		std::cout << "EqualMapper Size|" << mEqualMapper.size() << std::endl;
+
+		for (auto kv : mEqualMapper)
 		{
 			AddListToResult(q, kv.second);
 		}

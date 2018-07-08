@@ -1,4 +1,4 @@
-#ifndef MEMSQL_QUERY_H
+﻿#ifndef MEMSQL_QUERY_H
 #define MEMSQL_QUERY_H
 
 #include "TableBase.h"
@@ -32,7 +32,7 @@ namespace MemSQL
 
     public:
 
-        Query(std::shared_ptr<Table> ptr) : pTable(std::move(ptr)), iLimit(-1)
+        Query(std::shared_ptr<Table> ptr) : pTable(std::move(ptr)), iLimit(-1), done(false)
         {}
 		void Reset();
 		Query& Where(std::string& sFieldName, std::string& sMatchType, std::string& sValue);

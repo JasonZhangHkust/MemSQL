@@ -1,4 +1,4 @@
-#ifndef MEMSQL_TABLEFIELD_H
+﻿#ifndef MEMSQL_TABLEFIELD_H
 #define MEMSQL_TABLEFIELD_H
 
 #include "TableBase.h"

@@ -1,5 +1,5 @@
 #include"Table.h"
-
+#include <iostream>
 
 namespace MemSQL
 {
@@ -14,7 +14,11 @@ namespace MemSQL
 		{
 			tableFieldPtr pTableField = vFields[iIndex];
 			if (pTableField.get())
-				(*pTableField).Add(sFields.first, ptrRecord);
+			{
+				(*pTableField).Add(sFields.second, ptrRecord);
+				std::cout << sFields.first << "|" << sFields.second << std::endl;
+			}
+				
 			++iIndex;
 		}
 	}
@@ -31,13 +35,13 @@ namespace MemSQL
 
 	tableFieldPtr Table::GetFieldByIndex(int iIndex)
 	{
-
+		tableFieldPtr ptr = nullptr;
 		if (iIndex < vFields.size() && iIndex >= 0)
 		{
-			auto tTableField = vFields.at(iIndex);
+			ptr = vFields.at(iIndex);
 		}
 
-		return tableFieldPtr();
+		return ptr;
 	}
 
 	int Table::GetFieldCount()

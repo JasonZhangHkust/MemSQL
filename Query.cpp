@@ -1,4 +1,4 @@
-#include "Query.h"
+﻿#include "Query.h"
 #include "TableField.h"
 #include "Table.h"
 
@@ -60,7 +60,7 @@ namespace MemSQL
 	{
 		if (done || !pTable.get())
 			return;
-
+		std::cout << "Table Count"<<pTable->GetFieldCount() << std::endl;
 		if (pTable->GetFieldCount() > 0)
 		{
 			if (vConditions.empty())
@@ -84,10 +84,10 @@ namespace MemSQL
 	{
 		Do();
 		std::vector<std::map<std::string, std::string> > vResult;
-
-		for (auto& tData : vRet)
+		std::cout << "Result Size" << vRet.size() << std::endl;
+		for (auto& tData : mMergeDataByData)
 		{
-			vResult.push_back(tData);
+			vResult.push_back(*tData);
 		}
 
 		if (fSorter)
