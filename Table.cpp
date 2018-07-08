@@ -89,7 +89,7 @@ namespace MemSQL
 			break;
 				case MatchType::Great:
 			{
-				// ���ڵ�ǰֵ�������б�ϲ�
+
 				for (int j = i + 1; j <= iEnd; j++)
 				{
 					FieldType eFieldType = (*pField).GetTableFieldType();
@@ -102,7 +102,7 @@ namespace MemSQL
 			break;
 				case MatchType::GreatEqual:
 			{
-				// ���ڵ��ڵ�ǰֵ�������б�ϲ�
+
 				for (int j = i; j <= iEnd; j++)
 				{
 					FieldType eFieldType = (*pField).GetTableFieldType();

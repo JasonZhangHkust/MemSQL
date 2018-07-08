@@ -8,7 +8,7 @@
 #include <memory>
 #include <map>
 #include <set>
-
+#include <iostream>
 namespace MemSQL
 {
 

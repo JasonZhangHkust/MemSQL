@@ -23,6 +23,14 @@ int main()
 	vMyDefine.insert(std::make_pair("level", MemSQL::FieldType::INT));
 	vMyDefine.insert(std::make_pair("score", MemSQL::FieldType::INT));
 
-    MemSQL::Table myTable(vMyDefine);
+    std::shared_ptr<MemSQL::Table> myTablePtr = std::make_shared<MemSQL::Table>(vMyDefine);
+    std::map<std::string, std::string> mData = { {"id", "001"}, {"level", "55"}, {"score", "324"}};
+    myTablePtr->AddRecord(mData);
+
+    auto vResult = MemSQL::Query(myTablePtr).Result();
+
+    std::cout << vResult.size() << std::endl;
+
+    std::cin.get();
 
 }

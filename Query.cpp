@@ -65,7 +65,8 @@ namespace MemSQL
 		{
 			if (vConditions.empty())
 			{
-				pTable->GetFieldByIndex(0);
+				tableFieldPtr ptr = pTable->GetFieldByIndex(0);
+				ptr->All(this);
 			}
 			else
 			{
