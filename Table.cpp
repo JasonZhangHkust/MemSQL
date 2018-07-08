@@ -56,21 +56,21 @@ namespace MemSQL
 			return;
 		if ((*GetFieldByIndex(0)).KeyCount() == 0)
 		{
-			throw "Require table data to gen index";
+			throw MemSQLException("Require table data to gen index");
 		}
 
 		tableFieldPtr pField = GetFieldByName(sName);
 
 		if (!pField.get())
 		{
-			throw "Field not found: +" + sName;
+			throw MemSQLException("Field not found: +" + sName);
 		}
 
 		MatchType eMatchType = MatchTypeHelper::Parse(sMathType);
 
 		if (eMatchType == MatchType::Unknown)
 		{
-			throw "Unkown match type: " + sMathType;
+			throw MemSQLException("Unkown match type: " + sMathType);
 		}
 
 		for (int i = iBegin; i <= iEnd; ++i)

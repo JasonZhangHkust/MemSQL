@@ -18,12 +18,12 @@ namespace MemSQL
 
 		if (eMatchType == MatchType::Unknown)
 		{
-			throw "Unknow match type";
+			throw MemSQLException("Unknow match type: " + sMatchType);
 		}
 
 		if (!pTable.get())
 		{
-			throw "Empty Table";
+			throw MemSQLException("Empty Table");
 		}
 		Condition tCon;
 		tCon.matchType = eMatchType;
@@ -38,7 +38,7 @@ namespace MemSQL
 	{
 		if (count < 0)
 		{
-			throw "Count should > 0";
+			throw MemSQLException("Count should > 0");
 		}
 		this->iLimit = count;
 
@@ -84,7 +84,7 @@ namespace MemSQL
 	{
 		Do();
 		std::vector<std::map<std::string, std::string> > vResult;
-		std::cout << "Result Size" << vRet.size() << std::endl;
+		std::cout << "Result Size|" << mMergeDataByData.size() << std::endl;
 		for (auto& tData : mMergeDataByData)
 		{
 			vResult.push_back(*tData);

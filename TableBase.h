@@ -25,7 +25,13 @@ namespace MemSQL
         LessEqual,
         MAX,
     };
-
+    struct MemSQLException : public std::exception
+    {
+        std::string s;
+        MemSQLException(std::string ss) : s(ss) {}
+        ~MemSQLException() throw () {} // Updated
+        const char* what() const throw() { return s.c_str(); }
+    };
     class MatchTypeHelper
     {
         static std::unordered_map<std::string, MatchType> mStr2Type;

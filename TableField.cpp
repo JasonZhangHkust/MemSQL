@@ -26,7 +26,7 @@ namespace MemSQL
 			recordList lRecordList = { ptr };
 			mEqualMapper.insert(std::make_pair(sData, lRecordList));
 		}
-		std::cout << "EqualMapper" << mEqualMapper.size() << std::endl;
+		std::cout << "EqualMapper|" << mEqualMapper.size() << std::endl;
 	}
 
 	//Create Index
@@ -165,7 +165,7 @@ namespace MemSQL
 			}
 			else
 			{
-				throw "Match type index not built: " + std::to_string(t);
+				throw MemSQLException("Match type index not built: " + std::to_string(t));
 			}
 
 			AddListToResult(q, ud.matchTypeList.at(t));
