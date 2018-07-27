@@ -36,7 +36,7 @@ int main()
         MemSQL::Query myQuery(myTablePtr);
         std::string sId = "id";
         std::string sMatch = "==";
-        std::string sValue = "002";
+        std::string sValue = "001";
         auto vResult = myQuery.Where(sId, sMatch, sValue).Result();
 
         std::cout << "Final Record Retrieve|" << vResult.size() << std::endl;
